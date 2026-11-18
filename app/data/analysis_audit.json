@@ -1,0 +1,20 @@
+{
+  "raw_zip": "organizer_data_pack.zip",
+  "input_rows": {
+    "competitions": 141,
+    "teams": 353,
+    "matches": 883,
+    "deliveries": 200999,
+    "competition_team_player_mapping": 6413,
+    "playing_eleven": 28381
+  },
+  "selected_competitions": 139,
+  "selected_match_metadata": 853,
+  "analysed_matches": 837,
+  "analysed_deliveries": 193988,
+  "pressure_deliveries": 50618,
+  "pressure_matches": 800,
+  "eligible_batters_after_filters": 68,
+  "eligible_bowlers_after_filters": 87,
+  "excluded_player_ids_count": 98
+}

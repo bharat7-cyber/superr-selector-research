@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1524">
+  <meta name="description" content="A reproducible pressure-performance analysis of IPL and T20I players for SupeRR Selector Season 2 Round 1.">
+  <title>SupeRR | Pressure Performance Lab</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="SupeRR Pressure Lab home">
+        <span class="brand-mark">S<span>R</span></span>
+        <span><strong>SUPERR</strong><small>PRESSURE LAB / 2026</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span class="nav-icon">◫</span> Overview</a>
+        <a class="nav-link" href="#batters"><span class="nav-icon">↗</span> Batter rankings</a>
+        <a class="nav-link" href="#bowlers"><span class="nav-icon">⌁</span> Bowler rankings</a>
+        <a class="nav-link" href="#compare"><span class="nav-icon">⇄</span> Compare players</a>
+        <a class="nav-link" href="#scenario"><span class="nav-icon">◎</span> Scenario finder</a>
+        <a class="nav-link" href="#method"><span class="nav-icon">∑</span> Methodology</a>
+        <a class="nav-link" href="#sources"><span class="nav-icon">↗</span> Sources & limits</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="data-status"><span class="status-dot"></span><span><b>Research snapshot</b><small>18 Nov 2026 · Round 1</small></span></div>
+        <div class="sidebar-note">Source files are kept private. This dashboard shows derived results, not the organiser's raw data pack.</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb">ANALYTICS <span>/</span> ROUND 1 <span>/</span> PRESSURE PERFORMANCE</div>
+        <div class="topbar-right"><span class="live-pill"><i></i> MODEL RUN COMPLETE</span><a class="top-link" href="#sources">Research notes ↗</a></div>
+      </header>
+
+      <section id="overview" class="hero-section section-anchor">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> SUPERR SELECTOR SEASON 2</div>
+          <h1>Pressure is where<br><em>performance</em> gets tested.</h1>
+          <p class="hero-lede">A delivery-level view of the players who raise their output when the game gets difficult — compared with their own non-pressure baseline.</p>
+          <div class="hero-actions"><a href="#batters" class="btn btn-primary">Explore rankings <span>↘</span></a><a href="#method" class="btn btn-quiet">How the model works</a></div>
+        </div>
+        <div class="hero-graphic" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+          <div class="ball-core"><span>RR</span><small>DATA / 01</small></div>
+          <div class="graphic-tag tag-top"><b>01</b><span>PRESSURE<br>STATE</span></div>
+          <div class="graphic-tag tag-bottom"><b>02</b><span>BASELINE<br>DELTA</span></div>
+          <div class="graphic-caption">T20 MATCH CONTEXT MODEL</div>
+        </div>
+      </section>
+
+      <section class="scope-strip">
+        <div><span class="scope-label">ANALYSIS WINDOW</span><b>2022 — 2026</b><small>IPL + T20 Internationals</small></div>
+        <div><span class="scope-label">RANKING MODEL</span><b>Percentile-weighted</b><small>Separate batter & bowler scores</small></div>
+        <div><span class="scope-label">BASELINE</span><b>Non-pressure play</b><small>Same player, same data window</small></div>
+        <div><span class="scope-label">DELIVERY STATE</span><b>Pre-ball context</b><small>Pressure assessed before each ball</small></div>
+      </section>
+
+      <section class="section-block section-anchor" aria-labelledby="coverage-title">
+        <div class="section-heading"><div><div class="eyebrow">DATA COVERAGE</div><h2 id="coverage-title">The evidence base</h2></div><p>Only the competitions named in the formal Round 1 brief are included in the primary rankings.</p></div>
+        <div class="metric-grid" id="coverage-metrics">
+          <article class="metric-card"><span class="metric-label">MATCHES ANALYSED</span><strong id="matches-count">—</strong><span class="metric-foot">IPL + T20I</span></article>
+          <article class="metric-card"><span class="metric-label">DELIVERIES</span><strong id="deliveries-count">—</strong><span class="metric-foot">After scope filters</span></article>
+          <article class="metric-card metric-accent"><span class="metric-label">PRESSURE DELIVERIES</span><strong id="pressure-count">—</strong><span class="metric-foot" id="pressure-share">— of analysed balls</span></article>
+          <article class="metric-card"><span class="metric-label">PRESSURE MATCHES</span><strong id="pressure-matches">—</strong><span class="metric-foot">Matches with ≥1 pressure ball</span></article>
+        </div>
+        <div class="split-stat-row">
+          <div class="split-stat"><span class="dot-gold"></span><span>IPL</span><b id="ipl-matches">—</b><small>matches</small></div>
+          <div class="split-stat"><span class="dot-blue"></span><span>T20I</span><b id="t20i-matches">—</b><small>matches</small></div>
+          <div class="split-stat last"><span>Eligible player pool</span><b id="eligible-count">—</b><small>After minimum-sample filters</small></div>
+        </div>
+      </section>
+
+      <section class="section-block pressure-block">
+        <div class="section-heading"><div><div class="eyebrow">MATCH CONTEXT</div><h2>What counted as pressure?</h2></div><p>These rules are applied before the delivery. Counts use a priority tag so overlapping pressure conditions are counted once: first-innings stress, high required rate, then chase with wickets / late pressure.</p></div>
+        <div class="pressure-grid">
+          <article class="pressure-card"><div class="pressure-number">01</div><div class="pressure-icon">◷</div><h3>First-innings stress</h3><p>At least 4 wickets down with 30 or fewer legal balls left; or current run rate below 8 with 18 or fewer balls left; or at least 2 wickets down with 12 or fewer balls left.</p><span class="pressure-rule">WICKETS / LOW RR IN FINAL OVERS</span><span class="pressure-volume" id="pressure-late-count">— deliveries tagged</span></article>
+          <article class="pressure-card"><div class="pressure-number">02</div><div class="pressure-icon">↗</div><h3>High required rate</h3><p>In a chase, required rate is at least 9.0 with 60 or fewer legal balls remaining, and the target has not been reached.</p><span class="pressure-rule">RRR ≥ 9.0 · ≤60 BALLS LEFT</span><span class="pressure-volume" id="pressure-chase-count">— deliveries tagged</span></article>
+          <article class="pressure-card"><div class="pressure-number">03</div><div class="pressure-icon">▥</div><h3>Chase with wickets / late pressure</h3><p>Required rate is at least 8.0 with 5 or more wickets down and 90 or fewer legal balls left; or at least 7.5 with 30 or fewer balls left. The target must not be reached.</p><span class="pressure-rule">RRR ≥8 WITH WICKETS / ≥7.5 LATE</span><span class="pressure-volume" id="pressure-collapse-count">— deliveries tagged</span></article>
+        </div>
+      </section>
+
+      <section id="batters" class="section-block ranking-section section-anchor">
+        <div class="section-heading"><div><div class="eyebrow">01 / BATTER PERFORMANCE</div><h2>Top 10 batters under pressure</h2></div><p>Ranked on pressure strike rate, strike-rate uplift, smoothed-average uplift, boundary-rate uplift and pressure-innings consistency.</p></div>
+        <div class="ranking-toolbar"><div class="legend-note"><span class="legend-square gold"></span> PRESSURE OUTPUT <span class="legend-square slate"></span> NON-PRESSURE BASELINE</div><label class="search-box"><span>⌕</span><input id="batter-search" type="search" placeholder="Search batter…" aria-label="Search batters"></label></div>
+        <div class="table-wrap"><table class="ranking-table"><thead><tr><th>RANK</th><th>PLAYER</th><th>MODEL SCORE</th><th>PRESSURE RUNS</th><th>PRESSURE SR</th><th>SMOOTHED AVG</th><th>MATCHES</th><th>BASELINE SR</th><th></th></tr></thead><tbody id="batter-rows"></tbody></table></div>
+        <div class="table-foot"><span>Scores are relative percentiles, not probabilities.</span><a href="./data/top10_batters.csv" download>Download batter CSV ↓</a></div>
+      </section>
+
+      <section id="bowlers" class="section-block ranking-section section-anchor">
+        <div class="section-heading"><div><div class="eyebrow">02 / BOWLER PERFORMANCE</div><h2>Top 10 bowlers under pressure</h2></div><p>Ranked on wickets per 24 pressure balls, economy, dot-ball rate, baseline improvement and pressure-outing consistency.</p></div>
+        <div class="ranking-toolbar"><div class="legend-note"><span class="legend-square gold"></span> PRESSURE OUTPUT <span class="legend-square slate"></span> NON-PRESSURE BASELINE</div><label class="search-box"><span>⌕</span><input id="bowler-search" type="search" placeholder="Search bowler…" aria-label="Search bowlers"></label></div>
+        <div class="table-wrap"><table class="ranking-table"><thead><tr><th>RANK</th><th>PLAYER</th><th>MODEL SCORE</th><th>PRESSURE WKTS</th><th>PRESSURE ECON</th><th>WKTS / 24 BALLS</th><th>MATCHES</th><th>BASELINE ECON</th><th></th></tr></thead><tbody id="bowler-rows"></tbody></table></div>
+        <div class="table-foot"><span>Economy is runs conceded per six legal balls.</span><a href="./data/top10_bowlers.csv" download>Download bowler CSV ↓</a></div>
+      </section>
+
+      <section id="compare" class="section-block section-anchor compare-section">
+        <div class="section-heading"><div><div class="eyebrow">03 / PLAYER COMPARISON</div><h2>Compare two players</h2></div><p>Use the same model outputs to inspect the difference in pressure performance and baseline output.</p></div>
+        <div class="compare-controls"><label>PLAYER TYPE<select id="compare-kind"><option value="batter">Batters</option><option value="bowler">Bowlers</option></select></label><label>PLAYER A<select id="compare-a"></select></label><div class="versus">VS</div><label>PLAYER B<select id="compare-b"></select></label></div>
+        <div class="compare-grid" id="compare-result"></div>
+      </section>
+
+      <section id="scenario" class="section-block section-anchor scenario-section">
+        <div class="section-heading"><div><div class="eyebrow">04 / MATCH SITUATION TOOL</div><h2>Scenario finder</h2></div><p>Choose a match situation. The tool ranks players from the published top-10 pressure dataset and explains the evidence behind each suggestion.</p></div>
+        <div class="scenario-panel">
+          <div class="scenario-controls">
+            <label>WHAT DOES THE TEAM NEED?
+              <select id="scenario-select">
+                <option value="chase">Chase a difficult target — need scoring speed</option>
+                <option value="rescue">Recover after early/middle wickets — need batting stability</option>
+                <option value="finish">Accelerate late in the innings — need boundary hitting</option>
+                <option value="defend">Defend a total — need economical wicket-taking</option>
+                <option value="wickets">Break a partnership — need wicket-taking threat</option>
+              </select>
+            </label>
+            <button id="scenario-run" class="btn btn-primary" type="button">Find suitable players ↗</button>
+          </div>
+          <div id="scenario-explanation" class="scenario-explanation" aria-live="polite">Select a situation and run the finder. Results are based on pressure statistics, not a prediction of the next match.</div>
+          <div id="scenario-results" class="scenario-results"></div>
+          <div class="scenario-caveat"><b>How to read this:</b> this prototype uses aggregate pressure metrics from the current top-10 tables. It does not yet have ball-by-ball phase-specific splits, venue/pitch conditions, opposition matchups, or player availability. Treat the output as a shortlist to investigate, not a guaranteed prediction.</div>
+        </div>
+      </section>
+
+      <section id="method" class="section-block method-section section-anchor">
+        <div class="section-heading"><div><div class="eyebrow">05 / MODEL DESIGN</div><h2>How the rankings are built</h2></div><p>Every component is scaled to a percentile across eligible players, then combined with the published weights below.</p></div>
+        <div class="method-columns">
+          <article class="method-panel"><div class="panel-top"><span class="panel-index">A</span><h3>Batter score</h3><span class="panel-total">100%</span></div><div id="batter-weights"></div><div class="formula-note">Pressure strike rate (30%), strike-rate uplift (25%), smoothed-average uplift (15%), boundary-rate uplift (15%) and pressure-innings consistency (15%).</div></article>
+          <article class="method-panel"><div class="panel-top"><span class="panel-index blue">B</span><h3>Bowler score</h3><span class="panel-total">100%</span></div><div id="bowler-weights"></div><div class="formula-note">Wickets per 24 legal balls (28%), pressure economy (24%), economy improvement (18%), dot-ball rate (12%), dot-rate uplift (8%) and pressure-outing consistency (10%).</div></article>
+        </div>
+        <div class="eligibility-strip"><div><span class="eligibility-title">BATTER ELIGIBILITY</span><b>150+ pressure balls</b><small>8+ pressure matches · 3+ seasons · 100+ baseline balls · 50%+ balls at positions 1–7</small></div><div><span class="eligibility-title">BOWLER ELIGIBILITY</span><b>150+ legal pressure balls</b><small>8+ pressure matches · 3+ seasons · 100+ baseline legal balls</small></div></div>
+      </section>
+
+      <section id="sources" class="section-block source-section section-anchor">
+        <div class="section-heading"><div><div class="eyebrow">06 / TRANSPARENCY</div><h2>Sources, scope & limitations</h2></div><p>Research should be auditable. The source pack remains private; the website contains derived ranking outputs and documented model choices.</p></div>
+        <div class="source-grid">
+          <article class="source-card"><span class="source-type">PRIMARY DATA</span><h3>Organizer data pack</h3><p>Six CSVs supplied through Unstop: competitions, teams, matches, ball-by-ball, player mappings and playing XI. Used locally to reproduce the analysis.</p><span class="source-note">Raw files are not included in this public repository.</span></article>
+          <article class="source-card"><span class="source-type">CHALLENGE BRIEF</span><h3>SupeRR Selector Season 2</h3><p>Formal Round 1 brief defines the IPL/T20I scope and asks for two top-10 lists plus a methodology report.</p><a href="https://unstop.com/hackathons/crp-superr-selector-season-2-help-shape-rajasthan-royals-ipl-2027-auction-strategy-rajasthan-royals-1792758" target="_blank" rel="noreferrer">Open challenge page ↗</a></article>
+        </div>
+        <div class="inventory-panel">
+          <div class="inventory-heading"><div><span class="source-type">ORGANIZER ZIP INVENTORY</span><h3>What was actually supplied</h3></div><span class="inventory-tag">RAW ROW COUNTS · NOT PUBLISHED FILES</span></div>
+          <div class="inventory-grid">
+            <div><b>competitions.csv</b><strong>141</strong><small>competition records</small></div>
+            <div><b>teams.csv</b><strong>353</strong><small>team records</small></div>
+            <div><b>matches.csv</b><strong>883</strong><small>match records</small></div>
+            <div><b>ball_by_ball.csv</b><strong>200,999</strong><small>delivery rows</small></div>
+            <div><b>competition_team_player_mapping.csv</b><strong>6,413</strong><small>player mappings</small></div>
+            <div><b>playing_eleven.csv</b><strong>28,381</strong><small>match XI records</small></div>
+          </div>
+          <p class="inventory-foot">The primary analysis selects 139 IPL/T20I competitions, 853 match records and 193,988 usable deliveries across 837 matches. The original files are not included in this public site.</p>
+        </div>
+        <div class="limitations-box"><div class="limit-title">READ BEFORE USING THE RANKINGS</div><ul>
+          <li>The supplied formal brief specifies IPL and T20I data. Two other T20 competitions in the metadata are excluded from this primary ranking.</li>
+          <li>IPL and T20I are combined for the main ranking; opposition strength and match environments are not identical.</li>
+          <li>Pressure thresholds and scoring weights are transparent analyst choices, not official RR ratings.</li>
+          <li>The organiser pack has no nationality column. At the participant’s request, Pakistan- and Bangladesh-affiliated T20I player IDs are excluded using team mapping as a proxy; this cannot verify every player’s nationality.</li>
+          <li>Retired/inactive status, current fitness, auction registration, availability and franchise eligibility are not inferred. This is a retrospective performance ranking, not an auction eligibility list.</li>
+          <li>The output is a relative ranking among eligible players in this dataset, not a guarantee of future IPL performance.</li>
+        </ul></div>
+      </section>
+
+      <footer class="footer"><span>SUPERR / PRESSURE PERFORMANCE LAB</span><span>ROUND 1 · FINAL MODEL SNAPSHOT · NOV 2026</span><a href="#overview">Back to top ↑</a></footer>
+    </main>
+  </div>
+
+  <div class="detail-backdrop" id="detail-backdrop"></div>
+  <aside class="detail-drawer" id="detail-drawer" aria-label="Player details" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close player details">×</button>
+    <div id="drawer-content"></div>
+  </aside>
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>

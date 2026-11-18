@@ -1,0 +1,13 @@
+# Proprietary organiser data pack - never commit or publish
+/data/private/*
+!/data/private/README.md
+!/data/private/.gitkeep
+
+# Python / local tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.DS_Store
